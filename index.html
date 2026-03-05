@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Katie Foster — Maine Painter</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #f7f4ee;
+      --ink: #1c1c1a;
+      --muted: #7a7570;
+      --accent: #8b6f4e;
+      --line: #d8d2c8;
+      --nav-h: 72px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Jost', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      font-weight: 300;
+      font-size: 15px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      background: var(--cream);
+      border-bottom: 1px solid var(--line);
+      z-index: 100;
+      transition: box-shadow 0.3s;
+    }
+    nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .nav-logo span { font-style: italic; color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--ink); }
+
+    /* ── HAMBURGER ── */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 1px;
+      background: var(--ink);
+      transition: 0.3s;
+    }
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: var(--nav-h);
+      left: 0; right: 0;
+      background: var(--cream);
+      border-bottom: 1px solid var(--line);
+      padding: 24px 48px;
+      flex-direction: column;
+      gap: 20px;
+      z-index: 99;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-size: 13px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      padding-top: var(--nav-h);
+    }
+
+    /* ── HERO ── */
+    #work {
+      padding-top: calc(var(--nav-h) + 64px);
+      padding-bottom: 96px;
+    }
+    .hero-intro {
+      text-align: center;
+      padding: 0 24px 64px;
+    }
+    .hero-intro h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(42px, 7vw, 80px);
+      font-weight: 300;
+      letter-spacing: 0.01em;
+      line-height: 1.05;
+    }
+    .hero-intro h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+    .hero-intro p {
+      margin-top: 20px;
+      font-size: 14px;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+      max-width: 440px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* ── GALLERY GRID ── */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      aspect-ratio: 4/3;
+      background: #e8e3da;
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .gallery-item:hover img { transform: scale(1.04); }
+    .gallery-item .overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(28, 28, 26, 0);
+      display: flex;
+      align-items: flex-end;
+      padding: 20px;
+      transition: background 0.4s;
+    }
+    .gallery-item:hover .overlay { background: rgba(28, 28, 26, 0.45); }
+    .overlay-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      font-style: italic;
+      color: white;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.35s, transform 0.35s;
+    }
+    .gallery-item:hover .overlay-title { opacity: 1; transform: translateY(0); }
+
+    /* placeholder shimmer for missing images */
+    .gallery-item.placeholder {
+      background: linear-gradient(135deg, #e0d9ce 0%, #d0c9be 50%, #e0d9ce 100%);
+    }
+    .gallery-item.placeholder::after {
+      content: attr(data-title);
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 16px;
+      color: var(--muted);
+      text-align: center;
+      padding: 16px;
+    }
+
+    /* ── LIGHTBOX ── */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(20, 19, 17, 0.92);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 85vh;
+      object-fit: contain;
+      border-radius: 2px;
+    }
+    .lightbox-caption {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 18px;
+      color: rgba(255,255,255,0.7);
+      white-space: nowrap;
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 24px; right: 28px;
+      color: white;
+      font-size: 28px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      line-height: 1;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+    .lightbox-close:hover { opacity: 1; }
+    .lb-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.6);
+      font-size: 36px;
+      cursor: pointer;
+      padding: 12px;
+      transition: color 0.2s;
+    }
+    .lb-arrow:hover { color: white; }
+    .lb-prev { left: 16px; }
+    .lb-next { right: 16px; }
+
+    /* ── DIVIDER ── */
+    .divider {
+      max-width: 60px;
+      height: 1px;
+      background: var(--accent);
+      margin: 0 auto 40px;
+      opacity: 0.6;
+    }
+
+    /* ── ABOUT / STATEMENT ── */
+    #about {
+      padding: calc(var(--nav-h) + 80px) 24px 80px;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 24px;
+    }
+    #about h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(32px, 4vw, 48px);
+      font-weight: 300;
+      line-height: 1.15;
+      margin-bottom: 32px;
+    }
+    #about h2 em { font-style: italic; color: var(--accent); }
+    #about p {
+      color: #3a3835;
+      margin-bottom: 20px;
+      font-size: 15px;
+    }
+
+    /* ── CV ── */
+    #cv {
+      background: var(--ink);
+      color: var(--cream);
+      padding: calc(var(--nav-h) + 80px) 24px 80px;
+    }
+    .cv-inner {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    #cv .section-label { color: var(--accent); }
+    #cv h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(32px, 4vw, 48px);
+      font-weight: 300;
+      margin-bottom: 48px;
+      color: var(--cream);
+    }
+    .cv-block { margin-bottom: 44px; }
+    .cv-block h3 {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .cv-entry {
+      display: flex;
+      gap: 24px;
+      margin-bottom: 14px;
+      align-items: baseline;
+    }
+    .cv-year {
+      font-size: 12px;
+      color: rgba(247,244,238,0.45);
+      min-width: 48px;
+      flex-shrink: 0;
+    }
+    .cv-detail { font-size: 14px; color: rgba(247,244,238,0.82); }
+    .cv-detail strong { color: var(--cream); font-weight: 400; }
+
+    /* ── CONTACT ── */
+    #contact {
+      padding: calc(var(--nav-h) + 80px) 24px 100px;
+      max-width: 600px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    #contact h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(32px, 4vw, 48px);
+      font-weight: 300;
+      margin-bottom: 20px;
+    }
+    #contact h2 em { font-style: italic; color: var(--accent); }
+    #contact .contact-intro {
+      color: var(--muted);
+      margin-bottom: 48px;
+      font-size: 14px;
+    }
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      text-align: left;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group label {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      border: 1px solid var(--line);
+      background: white;
+      padding: 12px 14px;
+      font-family: 'Jost', sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--ink);
+      outline: none;
+      transition: border-color 0.2s;
+      border-radius: 0;
+      appearance: none;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus { border-color: var(--accent); }
+    .form-group textarea { height: 140px; resize: vertical; }
+    .btn-submit {
+      margin-top: 8px;
+      padding: 14px 40px;
+      background: var(--ink);
+      color: var(--cream);
+      border: none;
+      font-family: 'Jost', sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.25s;
+      align-self: flex-start;
+    }
+    .btn-submit:hover { background: var(--accent); }
+
+    .contact-email {
+      margin-top: 48px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .contact-email a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .contact-email a:hover { text-decoration: underline; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 28px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+    }
+    footer a { color: var(--muted); text-decoration: none; }
+    footer a:hover { color: var(--accent); }
+
+    /* ── FADE-IN ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 800px) {
+      nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); padding: 0 12px; }
+      .form-row { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 8px; text-align: center; }
+    }
+    @media (max-width: 500px) {
+      .gallery-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a class="nav-logo" href="#work">Katie <span>Foster</span></a>
+  <ul class="nav-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#cv">CV</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#work" onclick="closeMobile()">Work</a>
+  <a href="#about" onclick="closeMobile()">About</a>
+  <a href="#cv" onclick="closeMobile()">CV</a>
+  <a href="#contact" onclick="closeMobile()">Contact</a>
+</div>
+
+<!-- WORK -->
+<section id="work">
+  <div class="hero-intro fade-up">
+    <h1>Maine <em>Landscapes</em></h1>
+    <p>Original oil paintings capturing the wild and luminous beauty of the Maine coast and forest.</p>
+  </div>
+
+  <div class="gallery-grid">
+    <!-- Using the real Squarespace CDN images from the site -->
+    <div class="gallery-item" onclick="openLightbox(0)">
+      <img src="https://images.squarespace-cdn.com/content/v1/62de9a46cc234b03dd090d44/7f520c2e-5315-4a19-923f-aca5165fe1ed/IMG_5789.png" alt="Barred Island" loading="lazy" />
+      <div class="overlay"><div class="overlay-title">Barred Island</div></div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(1)">
+      <img src="https://images.squarespace-cdn.com/content/v1/62de9a46cc234b03dd090d44/546154a9-8aef-497a-98ea-564301257b64/IMG_5795.png" alt="The Ledges" loading="lazy" />
+      <div class="overlay"><div class="overlay-title">The Ledges</div></div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(2)">
+      <img src="https://images.squarespace-cdn.com/content/v1/62de9a46cc234b03dd090d44/3802e06d-29ad-4c7f-b5a2-f454e00704c3/IMG_5828.png" alt="Majestic Forest" loading="lazy" />
+      <div class="overlay"><div class="overlay-title">Majestic Forest</div></div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(3)">
+      <img src="https://images.squarespace-cdn.com/content/v1/62de9a46cc234b03dd090d44/1722362964450-EJIMH84751XPSI523YLC/PXL_20240726_123111203%5B1%5D.jpg" alt="End of the Path" loading="lazy" />
+      <div class="overlay"><div class="overlay-title">End of the Path</div></div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(4)">
+      <img src="https://images.squarespace-cdn.com/content/v1/62de9a46cc234b03dd090d44/1735700677643-Z09BB0VSTRURHP5EJC60/PXL_20241024_154858903.PORTRAIT.jpg" alt="Scenic Overlook Mini" loading="lazy" />
+      <div class="overlay"><div class="overlay-title">Scenic Overlook Mini</div></div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(5)">
+      <img src="https://images.squarespace-cdn.com/content/v1/62de9a46cc234b03dd090d44/1722362221486-AC07198WQGVWIKP1B83T/PXL_20240730_143613965%5B1%5D.jpg" alt="Forest Light" loading="lazy" />
+      <div class="overlay"><div class="overlay-title">Forest Light</div></div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(6)">
+      <img src="https://images.squarespace-cdn.com/content/v1/62de9a46cc234b03dd090d44/1735689690621-HKIWXLNSOY0NNUQR0E6I/PXL_20241122_131827413.PORTRAIT.jpg" alt="Bog Walk" loading="lazy" />
+      <div class="overlay"><div class="overlay-title">Bog Walk</div></div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(7)">
+      <img src="https://images.squarespace-cdn.com/content/v1/62de9a46cc234b03dd090d44/1735691519186-NG3ILR82QEDTT3OGSSCT/PXL_20241023_211332464.PORTRAIT.jpg" alt="Unexpected Blessings" loading="lazy" />
+      <div class="overlay"><div class="overlay-title">Unexpected Blessings</div></div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(8)">
+      <img src="https://images.squarespace-cdn.com/content/v1/62de9a46cc234b03dd090d44/1735696211586-CZPDS2GCV3VQRRKPR04U/PXL_20241025_172026742.PORTRAIT.jpg" alt="Camp Sunsets 2024" loading="lazy" />
+      <div class="overlay"><div class="overlay-title">Camp Sunsets 2024</div></div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(9)">
+      <img src="https://images.squarespace-cdn.com/content/v1/62de9a46cc234b03dd090d44/1722345036387-5RPJXRN6LYBURQCWLBMA/PXL_20240630_144019199.PORTRAIT.jpg" alt="Camp Sunsets" loading="lazy" />
+      <div class="overlay"><div class="overlay-title">Camp Sunsets</div></div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(10)">
+      <img src="https://images.squarespace-cdn.com/content/v1/62de9a46cc234b03dd090d44/1722343629246-S809H5I02RI28RJ9EN1I/websiteimage.jpg" alt="Hometown Sunset" loading="lazy" />
+      <div class="overlay"><div class="overlay-title">Hometown Sunset</div></div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(11)">
+      <img src="https://images.squarespace-cdn.com/content/v1/62de9a46cc234b03dd090d44/1735774977005-3T7UUQVYX3JWYMJI8YGN/PXL_20241214_151229826.jpg" alt="Fall Reflections" loading="lazy" />
+      <div class="overlay"><div class="overlay-title">Fall Reflections</div></div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(12)">
+      <img src="https://images.squarespace-cdn.com/content/v1/62de9a46cc234b03dd090d44/1722361073130-1R5802ZBIHKITXZFH6MG/PXL_20240730_144135809%5B1%5D.jpg" alt="Cliffside View" loading="lazy" />
+      <div class="overlay"><div class="overlay-title">Cliffside View</div></div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(13)">
+      <img src="https://images.squarespace-cdn.com/content/v1/62de9a46cc234b03dd090d44/1722362758480-40GWVLCOVY5OW5WC910H/PXL_20240730_120114202%5B1%5D.jpg" alt="Scenic Overlook" loading="lazy" />
+      <div class="overlay"><div class="overlay-title">Scenic Overlook</div></div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(14)">
+      <img src="https://images.squarespace-cdn.com/content/v1/62de9a46cc234b03dd090d44/1722361481915-RKZ9315J39MQ1MYSBUWQ/PXL_20240730_143836360.PORTRAIT%5B1%5D.jpg" alt="Hometown Sunset (Big)" loading="lazy" />
+      <div class="overlay"><div class="overlay-title">Hometown Sunset (Big)</div></div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(15)">
+      <img src="https://images.squarespace-cdn.com/content/v1/62de9a46cc234b03dd090d44/1658769878536-5TBAY7QATAOUZW4W2NYR/PXL_20220711_144229944.jpg" alt="Summer Runs" loading="lazy" />
+      <div class="overlay"><div class="overlay-title">Summer Runs</div></div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(16)">
+      <img src="https://images.squarespace-cdn.com/content/v1/62de9a46cc234b03dd090d44/1661167800097-8L4SNAHRTDZV2REJIDNA/PXL_20220821_211007599.jpg" alt="Wild Spaces" loading="lazy" />
+      <div class="overlay"><div class="overlay-title">Wild Spaces</div></div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(17)">
+      <img src="https://images.squarespace-cdn.com/content/v1/62de9a46cc234b03dd090d44/1658773011001-RR5NMI6SGJESTVSUXGI6/original_785b22c4-79c5-4727-a407-fe74a8b88457_PXL_20220709_215902170.jpg" alt="Come Away With Me" loading="lazy" />
+      <div class="overlay"><div class="overlay-title">Come Away With Me</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <button class="lightbox-close" onclick="closeLightboxBtn()">&times;</button>
+  <button class="lb-arrow lb-prev" onclick="lbNav(-1)">&#8592;</button>
+  <img id="lb-img" src="" alt="" />
+  <button class="lb-arrow lb-next" onclick="lbNav(1)">&#8594;</button>
+  <div class="lightbox-caption" id="lb-caption"></div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label fade-up">Artist Statement</div>
+  <div class="divider"></div>
+  <h2 class="fade-up">Painting the <em>wild heart</em> of Maine</h2>
+  <p class="fade-up">Katie Foster is a Maine-based painter whose work is rooted in deep observation of the natural world. Working primarily in oils, she seeks to capture the fleeting quality of light as it moves across the coast, forest, and bog — moments that are as much felt as seen.</p>
+  <p class="fade-up">Her paintings begin outdoors, in direct conversation with the landscape. Back in the studio, she distills those experiences into compositions that balance the specific and the universal — the particular cove at low tide, the exact quality of a late-summer evening — while remaining open to what the paint itself wants to do.</p>
+  <p class="fade-up">Foster is drawn to the edges of things: where land meets water, where summer becomes fall, where a path disappears into the trees. Maine offers an inexhaustible supply of such thresholds, and she considers herself a faithful student of the place she calls home.</p>
+  <p class="fade-up" style="font-style: italic; color: var(--muted); font-family: 'Cormorant Garamond', serif; font-size: 17px; border-left: 2px solid var(--accent); padding-left: 20px; margin-top: 32px;">"I'm interested in the moment just before something changes — the light before it shifts, the season on the turn. Painting is my way of staying in that moment a little longer."</p>
+</section>
+
+<!-- CV -->
+<section id="cv">
+  <div class="cv-inner">
+    <div class="section-label fade-up">Curriculum Vitae</div>
+    <div class="divider" style="background: var(--accent); margin-left: 0;"></div>
+    <h2 class="fade-up">Katie Foster</h2>
+
+    <div class="cv-block fade-up">
+      <h3>Education</h3>
+      <div class="cv-entry">
+        <span class="cv-year">—</span>
+        <span class="cv-detail"><strong>Self-taught painter</strong>, Maine</span>
+      </div>
+      <div class="cv-entry">
+        <span class="cv-year">—</span>
+        <span class="cv-detail">Workshops and mentorship in plein air painting</span>
+      </div>
+    </div>
+
+    <div class="cv-block fade-up">
+      <h3>Selected Works</h3>
+      <div class="cv-entry"><span class="cv-year">2024</span><span class="cv-detail"><strong>Barred Island</strong> — Oil on panel</span></div>
+      <div class="cv-entry"><span class="cv-year">2024</span><span class="cv-detail"><strong>The Ledges</strong> — Oil on panel</span></div>
+      <div class="cv-entry"><span class="cv-year">2024</span><span class="cv-detail"><strong>Majestic Forest</strong> — Oil on panel</span></div>
+      <div class="cv-entry"><span class="cv-year">2024</span><span class="cv-detail"><strong>End of the Path</strong> — Oil on canvas</span></div>
+      <div class="cv-entry"><span class="cv-year">2024</span><span class="cv-detail"><strong>Scenic Overlook</strong> — Oil on panel</span></div>
+      <div class="cv-entry"><span class="cv-year">2024</span><span class="cv-detail"><strong>Fall Reflections</strong> — Oil on panel</span></div>
+      <div class="cv-entry"><span class="cv-year">2022</span><span class="cv-detail"><strong>Wild Spaces</strong> — Oil on canvas</span></div>
+      <div class="cv-entry"><span class="cv-year">2022</span><span class="cv-detail"><strong>Come Away With Me</strong> — Oil on canvas</span></div>
+    </div>
+
+    <div class="cv-block fade-up">
+      <h3>Availability</h3>
+      <div class="cv-entry">
+        <span class="cv-year">—</span>
+        <span class="cv-detail">Original paintings available for purchase. Commission inquiries welcome.</span>
+      </div>
+      <div class="cv-entry">
+        <span class="cv-year">—</span>
+        <span class="cv-detail">Contact <a href="mailto:mercifulrefuge@gmail.com" style="color: var(--accent);">mercifulrefuge@gmail.com</a> for pricing and availability.</span>
+      </div>
+    </div>
+
+    <p class="fade-up" style="font-size: 12px; color: rgba(247,244,238,0.35); letter-spacing: 0.1em; margin-top: 8px;">
+      * CV details are placeholder — please update with your full exhibition history, education, and press.
+    </p>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label fade-up">Get in Touch</div>
+  <div class="divider"></div>
+  <h2 class="fade-up">Let's <em>work together</em></h2>
+  <p class="contact-intro fade-up">Whether you're interested in purchasing a painting, commissioning a custom piece, or simply want to say hello — I'd love to hear from you.</p>
+
+  <form class="contact-form fade-up" onsubmit="handleSubmit(event)">
+    <div class="form-row">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" placeholder="Your name" required />
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="your@email.com" required />
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="subject">Subject</label>
+      <select id="subject" name="subject">
+        <option value="">Select a topic...</option>
+        <option value="purchase">Purchase a painting</option>
+        <option value="commission">Commission a piece</option>
+        <option value="general">General inquiry</option>
+        <option value="press">Press / exhibition</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="message">Message</label>
+      <textarea id="message" name="message" placeholder="Tell me a bit about what you have in mind..." required></textarea>
+    </div>
+    <button type="submit" class="btn-submit">Send Message</button>
+    <div id="form-success" style="display:none; color: var(--accent); font-size: 13px; margin-top: 8px; letter-spacing: 0.05em;">Thank you — I'll be in touch soon.</div>
+  </form>
+
+  <div class="contact-email fade-up">
+    Or reach me directly at <a href="mailto:mercifulrefuge@gmail.com">mercifulrefuge@gmail.com</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2025 Katie Foster. All rights reserved.</span>
+  <span>Maine, USA &nbsp;·&nbsp; <a href="mailto:mercifulrefuge@gmail.com">mercifulrefuge@gmail.com</a></span>
+</footer>
+
+<script>
+  // ── NAV SCROLL ──
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 10);
+  });
+
+  // ── HAMBURGER ──
+  document.getElementById('hamburger').addEventListener('click', () => {
+    document.getElementById('mobile-menu').classList.toggle('open');
+  });
+  function closeMobile() { document.getElementById('mobile-menu').classList.remove('open'); }
+
+  // ── GALLERY DATA ──
+  const paintings = [
+    { src: 'https://images.squarespace-cdn.com/content/v1/62de9a46cc234b03dd090d44/7f520c2e-5315-4a19-923f-aca5165fe1ed/IMG_5789.png', title: 'Barred Island' },
+    { src: 'https://images.squarespace-cdn.com/content/v1/62de9a46cc234b03dd090d44/546154a9-8aef-497a-98ea-564301257b64/IMG_5795.png', title: 'The Ledges' },
+    { src: 'https://images.squarespace-cdn.com/content/v1/62de9a46cc234b03dd090d44/3802e06d-29ad-4c7f-b5a2-f454e00704c3/IMG_5828.png', title: 'Majestic Forest' },
+    { src: 'https://images.squarespace-cdn.com/content/v1/62de9a46cc234b03dd090d44/1722362964450-EJIMH84751XPSI523YLC/PXL_20240726_123111203%5B1%5D.jpg', title: 'End of the Path' },
+    { src: 'https://images.squarespace-cdn.com/content/v1/62de9a46cc234b03dd090d44/1735700677643-Z09BB0VSTRURHP5EJC60/PXL_20241024_154858903.PORTRAIT.jpg', title: 'Scenic Overlook Mini' },
+    { src: 'https://images.squarespace-cdn.com/content/v1/62de9a46cc234b03dd090d44/1722362221486-AC07198WQGVWIKP1B83T/PXL_20240730_143613965%5B1%5D.jpg', title: 'Forest Light' },
+    { src: 'https://images.squarespace-cdn.com/content/v1/62de9a46cc234b03dd090d44/1735689690621-HKIWXLNSYO0NNUQR0E6I/PXL_20241122_131827413.PORTRAIT.jpg', title: 'Bog Walk' },
+    { src: 'https://images.squarespace-cdn.com/content/v1/62de9a46cc234b03dd090d44/1735691519186-NG3ILR82QEDTT3OGSSCT/PXL_20241023_211332464.PORTRAIT.jpg', title: 'Unexpected Blessings' },
+    { src: 'https://images.squarespace-cdn.com/content/v1/62de9a46cc234b03dd090d44/1735696211586-CZPDS2GCV3VQRRKPR04U/PXL_20241025_172026742.PORTRAIT.jpg', title: 'Camp Sunsets 2024' },
+    { src: 'https://images.squarespace-cdn.com/content/v1/62de9a46cc234b03dd090d44/1722345036387-5RPJXRN6LYBURQCWLBMA/PXL_20240630_144019199.PORTRAIT.jpg', title: 'Camp Sunsets' },
+    { src: 'https://images.squarespace-cdn.com/content/v1/62de9a46cc234b03dd090d44/1722343629246-S809H5I02RI28RJ9EN1I/websiteimage.jpg', title: 'Hometown Sunset' },
+    { src: 'https://images.squarespace-cdn.com/content/v1/62de9a46cc234b03dd090d44/1735774977005-3T7UUQVYX3JWYMJI8YGN/PXL_20241214_151229826.jpg', title: 'Fall Reflections' },
+    { src: 'https://images.squarespace-cdn.com/content/v1/62de9a46cc234b03dd090d44/1722361073130-1R5802ZBIHKITXZFH6MG/PXL_20240730_144135809%5B1%5D.jpg', title: 'Cliffside View' },
+    { src: 'https://images.squarespace-cdn.com/content/v1/62de9a46cc234b03dd090d44/1722362758480-40GWVLCOVY5OW5WC910H/PXL_20240730_120114202%5B1%5D.jpg', title: 'Scenic Overlook' },
+    { src: 'https://images.squarespace-cdn.com/content/v1/62de9a46cc234b03dd090d44/1722361481915-RKZ9315J39MQ1MYSBUWQ/PXL_20240730_143836360.PORTRAIT%5B1%5D.jpg', title: 'Hometown Sunset (Big)' },
+    { src: 'https://images.squarespace-cdn.com/content/v1/62de9a46cc234b03dd090d44/1658769878536-5TBAY7QATAOUZW4W2NYR/PXL_20220711_144229944.jpg', title: 'Summer Runs' },
+    { src: 'https://images.squarespace-cdn.com/content/v1/62de9a46cc234b03dd090d44/1661167800097-8L4SNAHRTDZV2REJIDNA/PXL_20220821_211007599.jpg', title: 'Wild Spaces' },
+    { src: 'https://images.squarespace-cdn.com/content/v1/62de9a46cc234b03dd090d44/1658773011001-RR5NMI6SGJESTVSUXGI6/original_785b22c4-79c5-4727-a407-fe74a8b88457_PXL_20220709_215902170.jpg', title: 'Come Away With Me' },
+  ];
+
+  let currentIdx = 0;
+
+  function openLightbox(idx) {
+    currentIdx = idx;
+    updateLightbox();
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function updateLightbox() {
+    document.getElementById('lb-img').src = paintings[currentIdx].src;
+    document.getElementById('lb-img').alt = paintings[currentIdx].title;
+    document.getElementById('lb-caption').textContent = paintings[currentIdx].title;
+  }
+
+  function closeLightboxBtn() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function closeLightbox(e) {
+    if (e.target === document.getElementById('lightbox')) closeLightboxBtn();
+  }
+
+  function lbNav(dir) {
+    currentIdx = (currentIdx + dir + paintings.length) % paintings.length;
+    updateLightbox();
+  }
+
+  document.addEventListener('keydown', e => {
+    if (!document.getElementById('lightbox').classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightboxBtn();
+    if (e.key === 'ArrowLeft') lbNav(-1);
+    if (e.key === 'ArrowRight') lbNav(1);
+  });
+
+  // ── FADE-IN OBSERVER ──
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 60);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // ── FORM ──
+  function handleSubmit(e) {
+    e.preventDefault();
+    document.getElementById('form-success').style.display = 'block';
+    e.target.reset();
+    // In production, wire this to Formspree, Netlify Forms, or EmailJS
+    // e.g. fetch('https://formspree.io/f/YOUR_ID', { method:'POST', body: new FormData(e.target) })
+  }
+</script>
+
+</body>
+</html>
