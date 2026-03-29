@@ -159,16 +159,13 @@
       position: relative;
       overflow: hidden;
       cursor: pointer;
-      aspect-ratio: 4/3;
       background: #e8e3da;
     }
     .gallery-item img {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
+      height: auto;
       display: block;
       transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      /* Prevent browser from loading full-res until needed */
       content-visibility: auto;
     }
     .gallery-item:hover img { transform: scale(1.04); }
@@ -530,79 +527,79 @@
 
   <div class="gallery-grid">
     <div class="gallery-item" onclick="openLightbox(0)">
-      <img src="images/thumbs/Barred_Island.jpg" data-full="images/Barred_Island.png" alt="Barred Island" loading="lazy" decoding="async" width="800" height="600" />
+      <img src="images/thumbs/Barred_Island.jpg" data-full="images/Barred_Island.png" alt="Barred Island" loading="lazy" decoding="async" />
       <div class="overlay"><div class="overlay-title">Barred Island</div></div>
     </div>
     <div class="gallery-item" onclick="openLightbox(1)">
-      <img src="images/thumbs/The_Ledges.jpg" data-full="images/The_Ledges.png" alt="The Ledges" loading="lazy" decoding="async" width="800" height="600" />
+      <img src="images/thumbs/The_Ledges.jpg" data-full="images/The_Ledges.png" alt="The Ledges" loading="lazy" decoding="async" />
       <div class="overlay"><div class="overlay-title">The Ledges</div></div>
     </div>
     <div class="gallery-item" onclick="openLightbox(2)">
-      <img src="images/thumbs/Majestic_Forest.jpg" data-full="images/Majestic_Forest.png" alt="Majestic Forest" loading="lazy" decoding="async" width="800" height="600" />
+      <img src="images/thumbs/Majestic_Forest.jpg" data-full="images/Majestic_Forest.png" alt="Majestic Forest" loading="lazy" decoding="async" />
       <div class="overlay"><div class="overlay-title">Majestic Forest</div></div>
     </div>
     <div class="gallery-item" onclick="openLightbox(3)">
-      <img src="images/thumbs/End_of_the_Path.jpg" data-full="images/End_of_the_Path.jpg" alt="End of the Path" loading="lazy" decoding="async" width="800" height="600" />
+      <img src="images/thumbs/End_of_the_Path.jpg" data-full="images/End_of_the_Path.jpg" alt="End of the Path" loading="lazy" decoding="async" />
       <div class="overlay"><div class="overlay-title">End of the Path</div></div>
     </div>
     <div class="gallery-item" onclick="openLightbox(4)">
-      <img src="images/thumbs/Scenic_Overlook_Mini.jpg" data-full="images/Scenic_Overlook_Mini.jpg" alt="Scenic Overlook Mini" loading="lazy" decoding="async" width="800" height="600" />
+      <img src="images/thumbs/Scenic_Overlook_Mini.jpg" data-full="images/Scenic_Overlook_Mini.jpg" alt="Scenic Overlook Mini" loading="lazy" decoding="async" />
       <div class="overlay"><div class="overlay-title">Scenic Overlook Mini</div></div>
     </div>
     <div class="gallery-item" onclick="openLightbox(5)">
-      <img src="images/thumbs/Forest_Light.jpg" data-full="images/Forest_Light.jpg" alt="Forest Light" loading="lazy" decoding="async" width="800" height="600" />
+      <img src="images/thumbs/Forest_Light.jpg" data-full="images/Forest_Light.jpg" alt="Forest Light" loading="lazy" decoding="async" />
       <div class="overlay"><div class="overlay-title">Forest Light</div></div>
     </div>
     <div class="gallery-item" onclick="openLightbox(6)">
-      <img src="images/thumbs/Bog_Walk.jpg" data-full="images/Bog_Walk.jpg" alt="Bog Walk" loading="lazy" decoding="async" width="800" height="600" />
+      <img src="images/thumbs/Bog_Walk.jpg" data-full="images/Bog_Walk.jpg" alt="Bog Walk" loading="lazy" decoding="async" />
       <div class="overlay"><div class="overlay-title">Bog Walk</div></div>
     </div>
     <div class="gallery-item" onclick="openLightbox(7)">
-      <img src="images/thumbs/Unexpected_Blessings.jpg" data-full="images/Unexpected_Blessings.jpg" alt="Unexpected Blessings" loading="lazy" decoding="async" width="800" height="600" />
+      <img src="images/thumbs/Unexpected_Blessings.jpg" data-full="images/Unexpected_Blessings.jpg" alt="Unexpected Blessings" loading="lazy" decoding="async" />
       <div class="overlay"><div class="overlay-title">Unexpected Blessings</div></div>
     </div>
     <div class="gallery-item" onclick="openLightbox(8)">
-      <img src="images/thumbs/Camp_Sunsets_2024.jpg" data-full="images/Camp_Sunsets_2024.jpg" alt="Camp Sunsets 2024" loading="lazy" decoding="async" width="800" height="600" />
+      <img src="images/thumbs/Camp_Sunsets_2024.jpg" data-full="images/Camp_Sunsets_2024.jpg" alt="Camp Sunsets 2024" loading="lazy" decoding="async" />
       <div class="overlay"><div class="overlay-title">Camp Sunsets 2024</div></div>
     </div>
     <div class="gallery-item" onclick="openLightbox(9)">
-      <img src="images/thumbs/Camp_Sunsets.jpg" data-full="images/Camp_Sunsets.jpg" alt="Camp Sunsets" loading="lazy" decoding="async" width="800" height="600" />
+      <img src="images/thumbs/Camp_Sunsets.jpg" data-full="images/Camp_Sunsets.jpg" alt="Camp Sunsets" loading="lazy" decoding="async" />
       <div class="overlay"><div class="overlay-title">Camp Sunsets</div></div>
     </div>
     <div class="gallery-item" onclick="openLightbox(10)">
-      <img src="images/thumbs/Hometown_Sunset.jpg" data-full="images/Hometown_Sunset.jpg" alt="Hometown Sunset" loading="lazy" decoding="async" width="800" height="600" />
+      <img src="images/thumbs/Hometown_Sunset.jpg" data-full="images/Hometown_Sunset.jpg" alt="Hometown Sunset" loading="lazy" decoding="async" />
       <div class="overlay"><div class="overlay-title">Hometown Sunset</div></div>
     </div>
     <div class="gallery-item" onclick="openLightbox(11)">
-      <img src="images/thumbs/Fall_Reflections.jpg" data-full="images/Fall_Reflections.jpg" alt="Fall Reflections" loading="lazy" decoding="async" width="800" height="600" />
+      <img src="images/thumbs/Fall_Reflections.jpg" data-full="images/Fall_Reflections.jpg" alt="Fall Reflections" loading="lazy" decoding="async" />
       <div class="overlay"><div class="overlay-title">Fall Reflections</div></div>
     </div>
     <div class="gallery-item" onclick="openLightbox(12)">
-      <img src="images/thumbs/Cliffside_View.jpg" data-full="images/Cliffside_View.jpg" alt="Cliffside View" loading="lazy" decoding="async" width="800" height="600" />
+      <img src="images/thumbs/Cliffside_View.jpg" data-full="images/Cliffside_View.jpg" alt="Cliffside View" loading="lazy" decoding="async" />
       <div class="overlay"><div class="overlay-title">Cliffside View</div></div>
     </div>
     <div class="gallery-item" onclick="openLightbox(13)">
-      <img src="images/thumbs/Camp_Sunsets_Early.jpg" data-full="images/Camp_Sunsets_Early.jpg" alt="Camp Sunsets (Early)" loading="lazy" decoding="async" width="800" height="600" />
+      <img src="images/thumbs/Camp_Sunsets_Early.jpg" data-full="images/Camp_Sunsets_Early.jpg" alt="Camp Sunsets (Early)" loading="lazy" decoding="async" />
       <div class="overlay"><div class="overlay-title">Camp Sunsets (Early)</div></div>
     </div>
     <div class="gallery-item" onclick="openLightbox(14)">
-      <img src="images/thumbs/Scenic_Overlook.jpg" data-full="images/Scenic_Overlook.jpg" alt="Scenic Overlook" loading="lazy" decoding="async" width="800" height="600" />
+      <img src="images/thumbs/Scenic_Overlook.jpg" data-full="images/Scenic_Overlook.jpg" alt="Scenic Overlook" loading="lazy" decoding="async" />
       <div class="overlay"><div class="overlay-title">Scenic Overlook</div></div>
     </div>
     <div class="gallery-item" onclick="openLightbox(15)">
-      <img src="images/thumbs/Hometown_Sunset_Big.jpg" data-full="images/Hometown_Sunset_Big.jpg" alt="Hometown Sunset (Big)" loading="lazy" decoding="async" width="800" height="600" />
+      <img src="images/thumbs/Hometown_Sunset_Big.jpg" data-full="images/Hometown_Sunset_Big.jpg" alt="Hometown Sunset (Big)" loading="lazy" decoding="async" />
       <div class="overlay"><div class="overlay-title">Hometown Sunset (Big)</div></div>
     </div>
     <div class="gallery-item" onclick="openLightbox(16)">
-      <img src="images/thumbs/Summer_Runs.jpg" data-full="images/Summer_Runs.jpg" alt="Summer Runs" loading="lazy" decoding="async" width="800" height="600" />
+      <img src="images/thumbs/Summer_Runs.jpg" data-full="images/Summer_Runs.jpg" alt="Summer Runs" loading="lazy" decoding="async" />
       <div class="overlay"><div class="overlay-title">Summer Runs</div></div>
     </div>
     <div class="gallery-item" onclick="openLightbox(17)">
-      <img src="images/thumbs/Wild_Spaces.jpg" data-full="images/Wild_Spaces.jpg" alt="Wild Spaces" loading="lazy" decoding="async" width="800" height="600" />
+      <img src="images/thumbs/Wild_Spaces.jpg" data-full="images/Wild_Spaces.jpg" alt="Wild Spaces" loading="lazy" decoding="async" />
       <div class="overlay"><div class="overlay-title">Wild Spaces</div></div>
     </div>
     <div class="gallery-item" onclick="openLightbox(18)">
-      <img src="images/thumbs/Come_Away_With_Me.jpg" data-full="images/Come_Away_With_Me.jpg" alt="Come Away With Me" loading="lazy" decoding="async" width="800" height="600" />
+      <img src="images/thumbs/Come_Away_With_Me.jpg" data-full="images/Come_Away_With_Me.jpg" alt="Come Away With Me" loading="lazy" decoding="async" />
       <div class="overlay"><div class="overlay-title">Come Away With Me</div></div>
     </div>
   </div>
